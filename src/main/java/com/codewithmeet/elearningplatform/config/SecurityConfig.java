@@ -1,6 +1,5 @@
 package com.codewithmeet.elearningplatform.config;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,10 +24,10 @@ public class SecurityConfig {
 
 
         httpSecurity.authorizeHttpRequests(auth ->
-                auth.requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole("GUEST", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
+                auth.requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole("GUEST", "ADMIN" , "TEACHER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAnyRole("ADMIN" , "TEACHER")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAnyRole("ADMIN" , "TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAnyRole("ADMIN" , "TEACHER")
 //                        .requestMatchers("/all").permitAll()
                         .anyRequest()
                         .authenticated());
