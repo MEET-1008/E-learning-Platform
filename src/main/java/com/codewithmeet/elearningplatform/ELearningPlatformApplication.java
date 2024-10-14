@@ -69,7 +69,7 @@ public class ELearningPlatformApplication implements CommandLineRunner {
         User user = new User();
         user.setUserId(UUID.randomUUID().toString());
         user.setEmail("admin@gmail.com");
-        user.setPassword(passwordEncoder.encode("admin"));
+        user.setPassword(passwordEncoder.encode("123"));
         user.addRole(roles1);
 
         if (userRepo.findByEmail("admin@gmail.com").isPresent()) {
@@ -81,13 +81,25 @@ public class ELearningPlatformApplication implements CommandLineRunner {
         User user1 = new User();
         user1.setUserId(UUID.randomUUID().toString());
         user1.setEmail("teacher@gmail.com");
-        user1.setPassword(passwordEncoder.encode("teacher"));
+        user1.setPassword(passwordEncoder.encode("123"));
         user1.addRole(roles3);
 
         if (userRepo.findByEmail("teacher@gmail.com").isPresent()) {
             System.out.println("teacher already exists");
         } else {
             userRepo.save(user1);
+        }
+
+        User user2 = new User();
+        user2.setUserId(UUID.randomUUID().toString());
+        user2.setEmail("user@gmail.com");
+        user2.setPassword(passwordEncoder.encode("123"));
+        user2.addRole(roles2);
+
+        if (userRepo.findByEmail("user@gmail.com").isPresent()) {
+            System.out.println("user already exists");
+        } else {
+            userRepo.save(user2);
         }
 
     }

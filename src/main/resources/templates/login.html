@@ -228,12 +228,12 @@
         <div class="form-container">
             <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
             <h1 class="opacity">LOGIN</h1>
-            <form data-th-action="@{'/login-process'}" method="post">
+            <form data-th-action="@{'/login-process'}" novalidate method="POST">
                 <input type="text" name="username" placeholder="USERNAME" />
                 <label>
                     <input type="password" name="password" placeholder="PASSWORD" />
                 </label>
-                <button class="opacity">SUBMIT</button>
+                <button class="opacity" type="submit">SUBMIT</button>
             </form>
             <div class="register-forget opacity">
                 <a href="">REGISTER</a>

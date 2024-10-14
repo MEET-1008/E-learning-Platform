@@ -31,8 +31,15 @@ public class UserConroller {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body( userService.addUser(userDto));
+    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
+//        UserDto userByEmail = userService.getUserByEmail(userDto.getEmail());
+//        if (userByEmail != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(userDto));
+//        }
+//        CustomMessage customMessage = new CustomMessage();
+//        customMessage.setMessage("User allReady successfully");
+//        customMessage.setSuccess(true);
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customMessage);
     }
 
     @PutMapping("/{id}")
@@ -49,5 +56,13 @@ public class UserConroller {
         return ResponseEntity.ok(customMessage);
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deleteAllUsers() {
+        userService.deletAllUser();
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setMessage("All users deleted successfully");
+        customMessage.setSuccess(true);
+        return ResponseEntity.ok(customMessage);
+    }
 
 }

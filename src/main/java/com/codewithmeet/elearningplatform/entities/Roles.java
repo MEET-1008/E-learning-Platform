@@ -1,9 +1,7 @@
 package com.codewithmeet.elearningplatform.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -19,6 +17,8 @@ public class Roles {
     private String roleName;
 
     @ManyToMany()
+    @JoinTable(name = "roles_users")
+    @JsonBackReference
     private Set<User> users = new HashSet<>();
 
 }

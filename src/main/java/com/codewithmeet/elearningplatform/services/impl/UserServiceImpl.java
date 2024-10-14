@@ -1,6 +1,7 @@
 package com.codewithmeet.elearningplatform.services.impl;
 
 import com.codewithmeet.elearningplatform.config.AppConstants;
+import com.codewithmeet.elearningplatform.dtos.CustomMessage;
 import com.codewithmeet.elearningplatform.dtos.UserDto;
 import com.codewithmeet.elearningplatform.entities.Roles;
 import com.codewithmeet.elearningplatform.entities.User;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,6 +61,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Roles roles = rolesRepo.findByRoleName(AppConstants.ROLE_USER).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
         user.addRole(roles);
+        user.setActive(true);
+        user.setEmailVarified(true);
+        user.setSmsVerified(true);
         userRepo.save(user);
         return modelMapper.map(user, UserDto.class);
     }
@@ -85,5 +90,10 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserByEmail(String email) {
         User user = userRepo.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return modelMapper.map(user, UserDto.class);
+    }
+
+    @Override
+    public void deletAllUser() {
+        userRepo.deleteAll();
     }
 }

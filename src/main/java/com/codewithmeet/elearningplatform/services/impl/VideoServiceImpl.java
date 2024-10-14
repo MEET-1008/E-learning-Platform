@@ -106,15 +106,4 @@ public class VideoServiceImpl implements VideoService {
         return null;
     }
 
-    @Service
-    public static class CustomUserDetailService implements UserDetailsService {
-
-        @Autowired
-        UserRepo userRepo;
-
-        @Override
-        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-            return userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
-        }
-    }
 }
