@@ -1,8 +1,10 @@
 package com.codewithmeet.elearningplatform.exceptions;
 
 import com.codewithmeet.elearningplatform.dtos.CustomMessage;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,8 +37,6 @@ public class GlobalExceptionHandler {
 
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-
-
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
@@ -46,4 +46,13 @@ public class GlobalExceptionHandler {
         customMessage.setSuccess(false);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(customMessage);
     }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<CustomMessage> handleConstraintViolation(AuthorizationDeniedException ex) {
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setMessage(ex.getMessage());
+        customMessage.setSuccess(false);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(customMessage);
+    }
+
 }

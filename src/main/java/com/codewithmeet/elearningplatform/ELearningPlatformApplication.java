@@ -73,7 +73,7 @@ public class ELearningPlatformApplication implements CommandLineRunner {
         user.addRole(roles1);
 
         if (userRepo.findByEmail("admin@gmail.com").isPresent()) {
-            System.out.println("User already exists");
+            System.out.println("admin already exists");
         } else {
             userRepo.save(user);
         }

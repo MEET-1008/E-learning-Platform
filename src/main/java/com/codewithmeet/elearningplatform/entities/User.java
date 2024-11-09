@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User {
 
     @Id
     private String userId;
@@ -59,38 +59,4 @@ public class User implements UserDetails {
         role.getUsers().remove(this);
     }
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-
-    return  roles
-            .stream()
-            .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
-            .collect(Collectors.toSet());
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
